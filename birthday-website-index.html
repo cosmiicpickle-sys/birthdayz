@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#171311">
+<title>Happy Birthday Laleee 🤎</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+        margin: 0;
+        width: 100%;
+        min-height: 100%;
+        font-family: Georgia, "Times New Roman", serif;
+        background: #171311;
+        color: #f7eee4;
+        overflow-x: hidden;
+    }
+
+    body {
+        min-height: 100vh;
+    }
+
+    button {
+        font: inherit;
+    }
+
+    /* =========================
+       CONTINUOUS SOFT CONFETTI
+       ========================= */
+    .confetti {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 100;
+        overflow: hidden;
+    }
+
+    .piece {
+        position: absolute;
+        top: -30px;
+        width: 7px;
+        height: 11px;
+        border-radius: 2px;
+        opacity: .58;
+        animation: fall linear infinite;
+    }
+
+    .piece:nth-child(3n) { background: #b98b62; }
+    .piece:nth-child(3n+1) { background: #e6c9a8; }
+    .piece:nth-child(3n+2) { background: #80604a; }
+
+    @keyframes fall {
+        0% {
+            transform: translate3d(0, -30px, 0) rotate(0deg);
+        }
+        50% {
+            transform: translate3d(35px, 55vh, 0) rotate(170deg);
+        }
+        100% {
+            transform: translate3d(-30px, 110vh, 0) rotate(360deg);
+        }
+    }
+
+    /* =========================
+       APP / PAGES
+       ========================= */
+    .app {
+        position: relative;
+        min-height: 100vh;
+        isolation: isolate;
+    }
+
+    .page {
+        min-height: 100vh;
+        width: 100%;
+        padding: 28px 18px 35px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    .page.active {
+        display: flex;
+        animation: pageIn .65s ease both;
+    }
+
+    @keyframes pageIn {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .page-inner {
+        width: min(100%, 430px);
+        margin: auto;
+        text-align: center;
+    }
+
+    .tiny-label {
+        color: #bda58e;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 13px;
+    }
+
+    /* =========================
+       PAGE 1 - CARD
+       ========================= */
+    .card-scene {
+        perspective: 1300px;
+        width: 100%;
+    }
+
+    .birthday-card {
+    width: 100%;
+    min-height: 1500px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform .9s cubic-bezier(.2,.75,.2,1);
+    cursor: pointer;
+}
+
+    .birthday-card.open {
+        transform: rotateY(180deg);
+    }
+
+    .card-face {
+        position: absolute;
+        inset: 0;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        border: 1px solid rgba(220, 187, 153, .24);
+        border-radius: 27px;
+        background:
+            radial-gradient(circle at 20% 15%, rgba(170,115,70,.14), transparent 27%),
+            linear-gradient(145deg, #28201c, #171311 75%);
+        box-shadow:
+            0 25px 65px rgba(0,0,0,.48),
+            inset 0 0 0 1px rgba(255,255,255,.025);
+        padding: 23px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card-front {
+        overflow: hidden;
+    }
+
+    .card-front::before,
+    .card-front::after {
+        content: "✦";
+        position: absolute;
+        color: #c49a74;
+        opacity: .55;
+        font-size: 19px;
+    }
+
+    .card-front::before { top: 18px; left: 22px; }
+    .card-front::after { bottom: 18px; right: 22px; }
+
+    .photo-frame {
+        width: min(78vw, 295px);
+        height: min(78vw, 350px);
+        max-height: 350px;
+        padding: 8px;
+        background: #efe2d3;
+        border-radius: 16px;
+        box-shadow: 0 13px 30px rgba(0,0,0,.38);
+        transform: rotate(-1.3deg);
+        margin-bottom: 25px;
+    }
+
+    .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+        background: #332720;
+    }
+
+    .birthday-title {
+        font-size: clamp(31px, 9vw, 47px);
+        line-height: 1.05;
+        margin: 0;
+        color: #f3dfc8;
+        font-weight: normal;
+        text-shadow: 0 3px 18px rgba(0,0,0,.35);
+    }
+
+    .subtitle {
+        margin: 13px 0 0;
+        font-size: 14px;
+        color: #bba28c;
+        font-family: Arial, sans-serif;
+        letter-spacing: .5px;
+    }
+
+    .open-hint {
+        margin-top: 25px;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        color: #d3b99e;
+        opacity: .78;
+        animation: breathe 2s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+        50% { opacity: .38; }
+    }
+
+    .card-back {
+    transform: rotateY(180deg);
+    justify-content: flex-start;
+    text-align: left;
+    padding: 45px 25px 35px;
+    overflow-y: auto;
+}
+
+    .back-heading {
+        width: 100%;
+        text-align: center;
+        font-size: 27px;
+        font-weight: normal;
+        color: #ead1b7;
+        margin: 0 0 19px;
+    }
+
+    .letter {
+        font-family: "Trebuchet MS", Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.78;
+        color: #e6d7c9;
+        white-space: pre-line;
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
+    .letter-placeholder {
+        width: 100%;
+        border-left: 2px solid #a97c58;
+        padding-left: 15px;
+    }
+
+    .continue-btn {
+        border: 1px solid rgba(224, 192, 159, .38);
+        background: #6d4932;
+        color: #fff3e7;
+        border-radius: 999px;
+        padding: 13px 20px;
+        width: 100%;
+        margin-top: 24px;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        letter-spacing: .2px;
+        box-shadow: 0 7px 22px rgba(0,0,0,.27);
+        transition: transform .2s, background .2s;
+    }
+
+    .continue-btn:active {
+        transform: scale(.97);
+        background: #81583d;
+    }
+
+    /* =========================
+       PAGE 2 - FOOD DOODLES
+       ========================= */
+    .food-page {
+        background:
+            radial-gradient(circle at 50% 45%, rgba(115,76,51,.18), transparent 48%);
+    }
+
+    .food-title {
+        font-size: 38px;
+        font-weight: normal;
+        margin: 0 0 8px;
+        color: #efd9c2;
+    }
+
+    .food-intro {
+        color: #bca48e;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        margin-bottom: 30px;
+    }
+
+    .doodle-board {
+        position: relative;
+        min-height: 490px;
+        border: 1px dashed rgba(218,180,145,.25);
+        border-radius: 30px;
+        background: rgba(31,24,20,.68);
+        overflow: hidden;
+    }
+
+    .doodle {
+        position: absolute;
+        color: #d8b18d;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,.25));
+        user-select: none;
+    }
+
+    .doodle .emoji {
+        display: block;
+        font-size: 58px;
+        filter: saturate(.7);
+    }
+
+    .doodle span {
+        display: block;
+        font-family: "Trebuchet MS", Arial, sans-serif;
+        font-size: 11px;
+        color: #c6aa91;
+        margin-top: 5px;
+    }
+
+    .biryani { left: 12%; top: 11%; transform: rotate(-8deg); }
+    .shawarma { right: 10%; top: 18%; transform: rotate(8deg); }
+    .leg { left: 8%; bottom: 15%; transform: rotate(7deg); }
+    .grill { right: 9%; bottom: 13%; transform: rotate(-8deg); }
+    .fries { left: 39%; top: 8%; transform: rotate(5deg); }
+
+    .center-joke {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(-2deg);
+        width: 72%;
+        padding: 27px 12px;
+        border: 2px solid rgba(203,160,121,.6);
+        border-radius: 48% 52% 45% 55%;
+        background: rgba(92,61,43,.25);
+    }
+
+    .center-joke::before {
+        content: "♡";
+        display: block;
+        font-size: 22px;
+        margin-bottom: 8px;
+        color: #cda47f;
+    }
+
+    .joke-text {
+        font-size: clamp(28px, 8vw, 39px);
+        line-height: 1;
+        color: #f1dbc5;
+        font-weight: normal;
+        margin: 0;
+    }
+
+    .little-note {
+        margin: 24px 0 0;
+        color: #aa917e;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    /* =========================
+       PAGE 3 - SCRATCH CARDS
+       ========================= */
+    .memory-page {
+        align-items: flex-start;
+        padding-top: 42px;
+    }
+
+    .memory-title {
+        font-size: 36px;
+        font-weight: normal;
+        margin: 0;
+        color: #f0d9c2;
+    }
+
+    .memory-subtitle {
+        color: #bca18a;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.5;
+        margin: 10px auto 25px;
+        max-width: 330px;
+    }
+
+    .memory-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .scratch-card {
+        position: relative;
+        height: 210px;
+        border-radius: 18px;
+        overflow: hidden;
+        background: #30251f;
+        box-shadow: 0 9px 25px rgba(0,0,0,.35);
+        border: 1px solid rgba(218,180,145,.2);
+    }
+
+    .scratch-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .scratch-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        touch-action: none;
+        cursor: crosshair;
+    }
+
+    .scratch-label {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        pointer-events: none;
+        color: #f1dfce;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        text-shadow: 0 2px 5px #000;
+    }
+
+    .scratch-label strong {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .scratch-label small {
+        font-size: 10px;
+        opacity: .75;
+    }
+
+    .final-note {
+        margin: 25px auto 0;
+        color: #d2b397;
+        font-size: 15px;
+        line-height: 1.6;
+        max-width: 340px;
+    }
+
+    .restart {
+        margin-top: 18px;
+        border: 1px solid rgba(219,183,150,.25);
+        color: #cdb49e;
+        background: transparent;
+        border-radius: 999px;
+        padding: 10px 17px;
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 370px) {
+        .birthday-card { min-height: 1450px; }
+        .photo-frame { height: 285px; }
+        .scratch-card { height: 175px; }
+        .doodle .emoji { font-size: 48px; }
+    }
+
+    @media (min-width: 600px) {
+        .page { padding: 45px 25px; }
+        .memory-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* =========================
+       PAGE 4 - APPRECIATION
+       ========================= */
+    .appreciation-page {
+        background:
+            radial-gradient(circle at 20% 20%, rgba(130,86,56,.13), transparent 28%),
+            radial-gradient(circle at 85% 75%, rgba(130,86,56,.11), transparent 30%);
+        align-items: flex-start;
+        padding-top: 40px;
+    }
+
+    .appreciation-title {
+        margin: 0;
+        font-size: clamp(32px, 9vw, 43px);
+        font-weight: normal;
+        color: #f0dac4;
+        line-height: 1.08;
+    }
+
+    .appreciation-intro {
+        margin: 10px auto 25px;
+        max-width: 340px;
+        color: #bda590;
+        font: 13px/1.55 Arial, sans-serif;
+    }
+
+    .appreciation-board {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        padding: 8px 4px 4px;
+    }
+
+    .app-card {
+        text-align: left;
+        position: relative;
+        padding: 18px 19px 17px 62px;
+        border-radius: 19px;
+        border: 1px solid rgba(225,191,157,.17);
+        background: linear-gradient(135deg, rgba(54,41,34,.92), rgba(30,24,21,.95));
+        box-shadow: 0 10px 25px rgba(0,0,0,.25);
+        transition: transform .2s ease;
+    }
+
+    .app-card:active {
+        transform: scale(.985) rotate(0deg);
+    }
+
+    .app-card-one { transform: rotate(-1deg); }
+    .app-card-two { transform: rotate(.8deg); }
+    .app-card-three { transform: rotate(-.6deg); }
+    .app-card-four { transform: rotate(1deg); }
+    .app-card-five { transform: rotate(-.8deg); }
+
+    .app-icon {
+        position: absolute;
+        left: 17px;
+        top: 19px;
+        font-size: 28px;
+        filter: saturate(.65);
+    }
+
+    .app-card h3 {
+        margin: 0 0 6px;
+        color: #ead1b9;
+        font-size: 16px;
+        font-weight: normal;
+    }
+
+    .app-card p {
+        margin: 0;
+        color: #bca694;
+        font: 12px/1.55 Arial, sans-serif;
+    }
+
+    .appreciation-ending {
+        margin: 27px auto 18px;
+        max-width: 330px;
+        color: #d7b99b;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .appreciation-ending span {
+        display: block;
+        font-size: 23px;
+        margin-bottom: 6px;
+        color: #b88962;
+    }
+
+    .appreciation-ending p {
+        margin: 0;
+    }
+
+    /* =========================
+       PAGE 5 - LETTERS
+       ========================= */
+    .letters-page {
+        align-items: flex-start;
+        padding-top: 40px;
+        background:
+            radial-gradient(circle at 50% 45%, rgba(105,70,47,.17), transparent 45%);
+    }
+
+    .letters-title {
+        margin: 0;
+        font-size: clamp(30px, 8.5vw, 42px);
+        font-weight: normal;
+        color: #f0dac4;
+        line-height: 1.1;
+    }
+
+    .letters-intro {
+        margin: 11px auto 21px;
+        max-width: 345px;
+        color: #bda591;
+        font: 13px/1.6 Arial, sans-serif;
+    }
+
+    .letter-board {
+        position: relative;
+        min-height: 560px;
+        border-radius: 28px;
+        border: 1px solid rgba(220,182,148,.17);
+        background:
+            radial-gradient(circle at 25% 20%, rgba(150,105,73,.10), transparent 30%),
+            linear-gradient(145deg, #29201b, #1c1714);
+        box-shadow: inset 0 0 35px rgba(0,0,0,.25), 0 15px 35px rgba(0,0,0,.28);
+        overflow: hidden;
+    }
+
+    .letter-board::before {
+        content: "little notes • little thoughts • lots of affection";
+        position: absolute;
+        top: 14px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: rgba(203,169,139,.42);
+        font: 9px Arial, sans-serif;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+
+    .sticky-note {
+        position: absolute;
+        width: 145px;
+        min-height: 143px;
+        padding: 28px 13px 12px;
+        border: 0;
+        color: #332820;
+        cursor: pointer;
+        box-shadow: 0 13px 23px rgba(0,0,0,.32);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .sticky-note::after {
+        content: "✦";
+        position: absolute;
+        bottom: 9px;
+        right: 12px;
+        font-size: 12px;
+        opacity: .35;
+    }
+
+    .sticky-note:active {
+        transform: scale(.95) rotate(0deg);
+        box-shadow: 0 5px 12px rgba(0,0,0,.3);
+    }
+
+    .note-tape {
+        position: absolute;
+        top: -7px;
+        left: 50%;
+        width: 52px;
+        height: 19px;
+        transform: translateX(-50%) rotate(-2deg);
+        background: rgba(215,194,171,.43);
+        box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    }
+
+    .note-small {
+        font: 9px Arial, sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1.3px;
+        opacity: .62;
+        margin-bottom: 8px;
+    }
+
+    .sticky-note strong {
+        font: 17px/1.15 Georgia, serif;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    .note-open {
+        margin-top: 12px;
+        font: 9px Arial, sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: .52;
+    }
+
+    .note-one {
+        left: 8%;
+        top: 10%;
+        background: #d8b998;
+        transform: rotate(-6deg);
+    }
+
+    .note-two {
+        right: 7%;
+        top: 11%;
+        background: #c9a783;
+        transform: rotate(5deg);
+    }
+
+    .note-three {
+        left: 9%;
+        top: 38%;
+        background: #e0c6a8;
+        transform: rotate(4deg);
+    }
+
+    .note-four {
+        right: 8%;
+        top: 40%;
+        background: #b9926f;
+        transform: rotate(-5deg);
+    }
+
+    .note-five {
+        left: 50%;
+        bottom: 7%;
+        transform: translateX(-50%) rotate(-2deg);
+        background: #ead5bd;
+    }
+
+    .note-five:active {
+        transform: translateX(-50%) scale(.95) rotate(0deg);
+    }
+
+    .last-page-hint {
+        color: #9f8875;
+        font: 11px Arial, sans-serif;
+        margin: 17px 0 0;
+    }
+
+    /* =========================
+       LETTER MODAL
+       ========================= */
+    .letter-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .letter-modal.show {
+        display: flex;
+        animation: modalIn .3s ease both;
+    }
+
+    @keyframes modalIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(8,6,5,.82);
+        backdrop-filter: blur(7px);
+    }
+
+    .modal-paper {
+        width: min(100%, 390px);
+        max-height: 86vh;
+        overflow-y: auto;
+        position: relative;
+        z-index: 1;
+        padding: 34px 27px 25px;
+        border-radius: 5px 5px 18px 5px;
+        background: #e6cfb4;
+        color: #352820;
+        box-shadow: 0 25px 70px rgba(0,0,0,.58);
+        transform: rotate(-1deg);
+    }
+
+    .modal-paper::before {
+        content: "";
+        position: absolute;
+        inset: 9px;
+        border: 1px dashed rgba(75,52,39,.23);
+        pointer-events: none;
+    }
+
+    .modal-close {
+        position: absolute;
+        z-index: 2;
+        top: 8px;
+        right: 12px;
+        border: 0;
+        background: transparent;
+        color: #5d4637;
+        font-size: 27px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .modal-deco {
+        text-align: center;
+        color: #8c6348;
+        font-size: 22px;
+        margin-bottom: 7px;
+    }
+
+    .modal-label {
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font: 9px Arial, sans-serif;
+        color: #85634d;
+        margin-bottom: 8px;
+    }
+
+    .modal-paper h3 {
+        margin: 0 0 17px;
+        text-align: center;
+        font-size: 27px;
+        font-weight: normal;
+        color: #3e2d23;
+    }
+
+    .modal-message {
+        white-space: pre-line;
+        text-align: left;
+        font: 14px/1.78 "Trebuchet MS", Arial, sans-serif;
+        color: #4d392d;
+    }
+
+    .modal-sign {
+        margin-top: 20px;
+        text-align: center;
+        color: #80604c;
+        font: italic 12px/1.5 Georgia, serif;
+    }
+
+    .modal-next {
+        display: block;
+        margin: 20px auto 0;
+        border: 1px solid rgba(73,51,40,.28);
+        border-radius: 999px;
+        background: rgba(93,64,47,.12);
+        color: #513a2d;
+        padding: 10px 16px;
+        font: 11px Arial, sans-serif;
+        cursor: pointer;
+    }
+
+    @media (max-width: 370px) {
+        .letter-board { min-height: 520px; }
+        .sticky-note { width: 132px; min-height: 132px; }
+        .sticky-note strong { font-size: 15px; }
+        .app-card { padding-left: 58px; }
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="confetti" aria-hidden="true">
+    <i class="piece" style="left:3%;animation-duration:9s;animation-delay:-2s"></i>
+    <i class="piece" style="left:8%;animation-duration:12s;animation-delay:-8s"></i>
+    <i class="piece" style="left:14%;animation-duration:10s;animation-delay:-5s"></i>
+    <i class="piece" style="left:20%;animation-duration:14s;animation-delay:-10s"></i>
+    <i class="piece" style="left:27%;animation-duration:11s;animation-delay:-3s"></i>
+    <i class="piece" style="left:34%;animation-duration:13s;animation-delay:-9s"></i>
+    <i class="piece" style="left:41%;animation-duration:9s;animation-delay:-6s"></i>
+    <i class="piece" style="left:48%;animation-duration:12s;animation-delay:-1s"></i>
+    <i class="piece" style="left:55%;animation-duration:10s;animation-delay:-7s"></i>
+    <i class="piece" style="left:62%;animation-duration:14s;animation-delay:-4s"></i>
+    <i class="piece" style="left:69%;animation-duration:11s;animation-delay:-11s"></i>
+    <i class="piece" style="left:76%;animation-duration:13s;animation-delay:-5s"></i>
+    <i class="piece" style="left:83%;animation-duration:9s;animation-delay:-8s"></i>
+    <i class="piece" style="left:90%;animation-duration:12s;animation-delay:-2s"></i>
+    <i class="piece" style="left:97%;animation-duration:10s;animation-delay:-6s"></i>
+</div>
+
+<main class="app">
+
+    <!-- =========================
+         PAGE 1
+         ========================= -->
+    <section class="page active" id="page1">
+        <div class="page-inner">
+            <div class="tiny-label">a little something for you ♡</div>
+
+            <div class="card-scene">
+                <div class="birthday-card" id="birthdayCard">
+
+                    <!-- FRONT OF CARD -->
+                    <div class="card-face card-front">
+                        <div class="photo-frame">
+                            <!-- 📸 CHANGE THIS TO YOUR FIRST PHOTO FILE NAME -->
+                            <img src="img1.jpg" alt="ZAKARIA">
+                        </div>
+
+                        <h1 class="birthday-title">Happy birthday<br>Laleee ♡</h1>
+                        <p class="subtitle">today is your day, The Zakaria day</p>
+                        <div class="open-hint">tap the card to open it ✦</div>
+                    </div>
+
+                    <!-- BACK OF CARD -->
+                    <div class="card-face card-back">
+                        <div style="width:100%;">
+                            <h2 class="back-heading">for my favourite person</h2>
+
+                            <div class="letter">
+                                <div class="letter-placeholder">
+                                    <!-- =================================================
+                                         ✍️ WRITE YOUR HEART-TOUCHING PARAGRAPH HERE
+                                         Replace the sample text below with YOUR message.
+                                         You can write as much as you want.
+                                         ================================================= -->
+                                     Okay, first of all… HAPPY BIRTHDAY ✦
+I don't really know where to start because there are so many things I could say, but I guess I'll start with the simplest one—
+I'm really glad I have you in my life.
+Some people come into your life and become a memory, some become a chapter, and then there are a few people who somehow become a part of your everyday life without you even realising it.
+You're one of those people for me.
+From our stupid conversations to the random nonsense we laugh about, from teasing each other for absolutely no reason to those tiny moments that probably seemed completely ordinary at the time… somehow, all of them became memories that I genuinely treasure.
+And honestly, I don't think you realise how much I care about you.
+
+I care about your happiness.
+I care about your dreams.
+I care about whether you're doing okay.
+And I care about seeing you become the person you want to be.
+
+You deserve good things, Laleee. Really good things.
+I hope this new year of your life brings you closer to everything you've ever wished for. I hope you become ridiculously successful, ridiculously happy, and a lot more awesome than you already are.
+But more than anything, I hope you never lose that kind, innocent, sweet heart of yours. Because that's one of the things that makes you you.
+So today isn't just about celebrating your birthday. It's also about celebrating you—the person you are, the memories we've made, and all the memories that are still waiting for us.
+There are still so many stupid jokes to make, random conversations to have, food to eat, moments to laugh at, and memories to create.
+And I'm really happy I get to be your best friend through at least some of them. 🤎
+So here's to you, Zakks.
+To another year of being adorable, annoying, kind, stupid, sweet, and completely yourself.
+And trust me… there's much more I wanted to tell you. 💌
+
+Happy Birthday, Zakaria. ♡
+
+                                    <!-- ✍️ YOUR PARAGRAPH ENDS HERE -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="continue-btn" id="celebrateBtn">
+                            Much more celebration ahead ✦
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         PAGE 2
+         ========================= -->
+    <section class="page food-page" id="page2">
+        <div class="page-inner">
+
+            <h2 class="food-title">Foodie-cutie</h2>
+            <p class="food-intro">because every birthday tribute needs to acknowledge the truth.</p>
+
+            <div class="doodle-board">
+
+                <div class="doodle biryani">
+                    <span class="emoji">🍛</span>
+                    <span>Biryani supremacy</span>
+                </div>
+
+                <div class="doodle shawarma">
+                    <span class="emoji">🌯</span>
+                    <span>shawarmaaaa</span>
+                </div>
+
+                <div class="doodle fries">
+                    <span class="emoji">🍟</span>
+                    <span>side quest</span>
+                </div>
+
+                <div class="doodle leg">
+                    <span class="emoji">🍗</span>
+                    <span>THE LEG PIECE</span>
+                </div>
+
+                <div class="doodle grill">
+                    <span class="emoji">🥩</span>
+                    <span>protein behaviour</span>
+                </div>
+
+                <div class="center-joke">
+                    <p class="joke-text">non-veg<br>pagluu</p>
+                </div>
+
+            </div>
+
+            <p class="little-note">scientifically proven to be happiest near food ♡</p>
+
+            <button class="continue-btn" id="memoriesBtn">
+                okay, now the memories →
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- =========================
+         PAGE 3
+         ========================= -->
+    <section class="page memory-page" id="page3">
+        <div class="page-inner">
+
+            <div class="tiny-label">scratch carefully</div>
+            <h2 class="memory-title">little pieces of you ♡</h2>
+
+            <p class="memory-subtitle">
+                There are a few memories hiding here.
+                Scratch each card with your finger and reveal them one by one.
+            </p>
+
+            <div class="memory-grid">
+
+                <!-- MEMORY 1 -->
+                <div class="scratch-card">
+                    <img src="img2.jpg" alt="Memory 1">
+                    <canvas class="scratch-canvas"></canvas>
+                    <div class="scratch-label">
+                        <strong>scratch me 👀</strong>
+                        <small>there's something underneath</small>
+                    </div>
+                </div>
+
+                <!-- MEMORY 2 -->
+                <div class="scratch-card">
+                    <img src="img3.jpg" alt="Memory 2">
+                    <canvas class="scratch-canvas"></canvas>
+                    <div class="scratch-label">
+                        <strong>another one...</strong>
+                        <small>go on, scratch ♡</small>
+                    </div>
+                </div>
+
+                <!-- MEMORY 3 -->
+                <div class="scratch-card">
+                    <img src="img4.jpg" alt="Memory 3">
+                    <canvas class="scratch-canvas"></canvas>
+                    <div class="scratch-label">
+                        <strong>memory unlocked</strong>
+                        <small>keep going ✦</small>
+                    </div>
+                </div>
+
+                <!-- MEMORY 4 -->
+                <div class="scratch-card">
+                    <img src="img5.jpg" alt="Memory 4">
+                    <canvas class="scratch-canvas"></canvas>
+                    <div class="scratch-label">
+                        <strong>one more ♡</strong>
+                        <small>you know what to do</small>
+                    </div>
+                </div>
+
+                <!-- MEMORY 5
+                     If you only want 4 photos, DELETE this whole block. -->
+                <div class="scratch-card">
+                    <img src="img6.jpg" alt="Memory 5">
+                    <canvas class="scratch-canvas"></canvas>
+                    <div class="scratch-label">
+                        <strong>last one...</strong>
+                        <small>for now ✦</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="final-note">
+                And that's still not enough space for all the memories.
+                Happy birthday, to the most innocent soul. 🤎
+            </p>
+
+            <button class="continue-btn" id="appreciationBtn">
+                okay, but there's more to say → 
+            </button>
+
+
+        </div>
+    </section>
+
+
+    <!-- =========================
+         PAGE 4 - A FEW THINGS ABOUT YOU
+         ========================= -->
+    <section class="page appreciation-page" id="page4">
+        <div class="page-inner">
+
+            <div class="tiny-label">a small investigation</div>
+            <h2 class="appreciation-title">a few things about you...</h2>
+            <p class="appreciation-intro">
+                After years of extremely serious observation, I've reached a few conclusions.
+            </p>
+
+            <div class="appreciation-board">
+
+                <div class="app-card app-card-one">
+                    <div class="app-icon">🤍🦢</div>
+                    <h3>You are the kindest, most pure innocent soul</h3>
+                    <p>You have the vibe of sunshine after rain, your smile just melts me</p>
+                </div>
+
+                <div class="app-card app-card-two">
+                    <div class="app-icon">🫣</div>
+                    <h3>Professional pagluu behaviour</h3>
+                    <p>Somehow manages to be annoying and lovable at exactly the same time.</p>
+                </div>
+
+                <div class="app-card app-card-three">
+                    <div class="app-icon">✨</div>
+                    <h3>Makes ordinary moments unforgetable</h3>
+                    <p>Even the most random conversations somehow become memories worth keeping.</p>
+                </div>
+
+                <div class="app-card app-card-four">
+                    <div class="app-icon">🦢</div>
+                    <h3>Probably doesn't realise how special he is</h3>
+                    <p>Which is, unfortunately, why this entire website had to be made.</p>
+                </div>
+
+                <div class="app-card app-card-five">
+                    <div class="app-icon">🫂</div>
+                    <h3>One of a kind</h3>
+                    <p>There is only one Lalee. And honestly, one is probably enough. ♡</p>
+                </div>
+
+            </div>
+
+            <div class="appreciation-ending">
+                <span>♡</span>
+                <p>But some things deserve more than just a little card...</p>
+            </div>
+
+            <button class="continue-btn" id="lettersBtn">
+                open your letters and try not to cry 💌
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- =========================
+         PAGE 5 - LETTERS
+         ========================= -->
+    <section class="page letters-page" id="page5">
+        <div class="page-inner">
+
+            <div class="tiny-label">the last little thing</div>
+            <h2 class="letters-title">letters I wanted you to have</h2>
+
+            <p class="letters-intro">
+                I couldn't fit everything I wanted to say into one birthday message...
+                so I left a few little notes for you instead.
+            </p>
+
+            <div class="letter-board">
+
+                <!-- LETTER 1 -->
+                <button class="sticky-note note-one" data-letter="1">
+                    <span class="note-tape"></span>
+                    <span class="note-small">open when...</span>
+                    <strong>you need a smile ♡</strong>
+                    <span class="note-open">tap me</span>
+                </button>
+
+                <!-- LETTER 2 -->
+                <button class="sticky-note note-two" data-letter="2">
+                    <span class="note-tape"></span>
+                    <span class="note-small">open when...</span>
+                    <strong>you forget how loved you are</strong>
+                    <span class="note-open">tap me</span>
+                </button>
+
+                <!-- LETTER 3 -->
+                <button class="sticky-note note-three" data-letter="3">
+                    <span class="note-tape"></span>
+                    <span class="note-small">open when...</span>
+                    <strong>you miss our stupid conversations</strong>
+                    <span class="note-open">tap me</span>
+                </button>
+
+                <!-- LETTER 4 -->
+                <button class="sticky-note note-four" data-letter="4">
+                    <span class="note-tape"></span>
+                    <span class="note-small">open when...</span>
+                    <strong>life gets a little heavy</strong>
+                    <span class="note-open">tap me</span>
+                </button>
+
+                <!-- LETTER 5 -->
+                <button class="sticky-note note-five" data-letter="5">
+                    <span class="note-tape"></span>
+                    <span class="note-small">open this one last...</span>
+                    <strong>♡ for Laleee ♡</strong>
+                    <span class="note-open">tap me</span>
+                </button>
+
+            </div>
+
+            <p class="last-page-hint">Take your time, there is no rush. @2026🤎</p>
+
+        </div>
+    </section>
+
+    <!-- =========================
+         LETTER MODAL
+         ========================= -->
+    <div class="letter-modal" id="letterModal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+
+        <div class="modal-paper" role="dialog" aria-modal="true">
+            <button class="modal-close" id="closeLetter" aria-label="Close letter">×</button>
+
+            <div class="modal-deco">♡</div>
+            <div class="modal-label" id="modalLabel">a little note for you</div>
+            <h3 id="modalTitle">For Zakks</h3>
+
+            <div class="modal-message" id="modalMessage"></div>
+
+            <div class="modal-sign">— from someone who cares about you a lot 🤎</div>
+
+            <button class="modal-next" id="modalNext">close this little note</button>
+        </div>
+    </div>
+
+</main>
+
+
+<script>
+    /* ============================================
+       PAGE NAVIGATION
+       ============================================ */
+
+    const card = document.getElementById("birthdayCard");
+    const celebrateBtn = document.getElementById("celebrateBtn");
+    const memoriesBtn = document.getElementById("memoriesBtn");
+
+    card.addEventListener("click", function(e) {
+        // Don't flip back if the user is clicking the button.
+        if (!e.target.closest("button")) {
+            card.classList.toggle("open");
+        }
+    });
+
+    celebrateBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        goToPage(2);
+    });
+
+    memoriesBtn.addEventListener("click", function() {
+        goToPage(3);
+    });
+
+    function goToPage(number) {
+        document.querySelectorAll(".page").forEach(page => {
+            page.classList.remove("active");
+        });
+
+        document.getElementById("page" + number).classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* ============================================
+       SCRATCH CARD ENGINE
+       Works with BOTH mouse and phone touch.
+       ============================================ */
+
+    function setupScratchCard(cardElement) {
+        const canvas = cardElement.querySelector(".scratch-canvas");
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        let isScratching = false;
+
+        function resizeCanvas() {
+            const rect = cardElement.getBoundingClientRect();
+            const oldData = canvas.width && canvas.height
+                ? canvas.toDataURL()
+                : null;
+
+            canvas.width = Math.max(1, Math.floor(rect.width * devicePixelRatio));
+            canvas.height = Math.max(1, Math.floor(rect.height * devicePixelRatio));
+
+            canvas.style.width = rect.width + "px";
+            canvas.style.height = rect.height + "px";
+
+            ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+
+            // The scratch surface
+            ctx.globalCompositeOperation = "source-over";
+            ctx.fillStyle = "#5b5048";
+            ctx.fillRect(0, 0, rect.width, rect.height);
+
+            // Subtle scratch texture
+            for (let i = 0; i < 100; i++) {
+                ctx.fillStyle = i % 2
+                    ? "rgba(235,219,202,.07)"
+                    : "rgba(20,15,12,.08)";
+                ctx.beginPath();
+                ctx.arc(
+                    Math.random() * rect.width,
+                    Math.random() * rect.height,
+                    Math.random() * 2.5 + .5,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
+            }
+
+            ctx.fillStyle = "rgba(245,231,215,.16)";
+            ctx.font = "12px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText("scratch to reveal", rect.width / 2, rect.height / 2);
+        }
+
+        function scratch(x, y) {
+            const rect = canvas.getBoundingClientRect();
+
+            const px = x - rect.left;
+            const py = y - rect.top;
+
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.beginPath();
+            ctx.arc(px, py, 25, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Make the stroke slightly bigger for touch screens.
+            ctx.beginPath();
+            ctx.arc(px, py, 13, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function getPoint(event) {
+            if (event.touches && event.touches.length) {
+                return {
+                    x: event.touches[0].clientX,
+                    y: event.touches[0].clientY
+                };
+            }
+
+            return {
+                x: event.clientX,
+                y: event.clientY
+            };
+        }
+
+        canvas.addEventListener("pointerdown", function(e) {
+            isScratching = true;
+            scratch(e.clientX, e.clientY);
+        });
+
+        canvas.addEventListener("pointermove", function(e) {
+            if (!isScratching) return;
+            scratch(e.clientX, e.clientY);
+        });
+
+        window.addEventListener("pointerup", function() {
+            isScratching = false;
+        });
+
+        // Extra touch support for phones.
+        canvas.addEventListener("touchstart", function(e) {
+            e.preventDefault();
+            isScratching = true;
+            const p = getPoint(e);
+            scratch(p.x, p.y);
+        }, { passive: false });
+
+        canvas.addEventListener("touchmove", function(e) {
+            e.preventDefault();
+            if (!isScratching) return;
+            const p = getPoint(e);
+            scratch(p.x, p.y);
+        }, { passive: false });
+
+        canvas.addEventListener("touchend", function() {
+            isScratching = false;
+        });
+
+        resizeCanvas();
+
+        window.addEventListener("resize", resizeCanvas);
+    }
+
+    document.querySelectorAll(".scratch-card").forEach(setupScratchCard);
+
+    /* ============================================
+       PAGE 3 -> PAGE 4 -> PAGE 5
+       ============================================ */
+    document.getElementById("appreciationBtn").addEventListener("click", function() {
+        goToPage(4);
+    });
+
+    document.getElementById("lettersBtn").addEventListener("click", function() {
+        goToPage(5);
+    });
+
+
+    /* ============================================
+       PAGE 5 - PERSONAL LETTERS
+
+       ✍️ EDIT THESE FIVE LETTERS BELOW.
+       Keep the text inside the backticks.
+       ============================================ */
+
+    const letters = {
+        1: {
+            label: "open when you need a smile",
+            title: "For the days you forget to smile ♡",
+            message: `Hey Laleee,
+
+THE DAY I CAME AT SHOP..
+
+Remember when I first came to your shop just to see you mask-less and we walked ahead ate panipuri and you were literally biting your nails by nervousness,
+hahha i can never forget that moment, it was so cute and funny at the same time. 
+Or haa kulfii nhi khilayi haa mujhe us din.. Hehhee
+
+
+— your personal supplier of unnecessary affection 🤎`
+        },
+
+        2: {
+            label: "open when you forget",
+            title: "You are more loved than you think",
+            message: `Hey Zakks,
+
+YOU ARE REALLY LOVED. 
+
+You are really loved, more than you can imagine. I know you don't always feel it, but it's true. 
+You have a way of making people feel special, and they want to do the same for you. Stay as kind, as innocent you are.
+You are a rare soul, and you deserve all the love in the world.  Don't ever doubt on yourself. You are loved, you are appreciated, and you are enough.
+
+`
+        },
+
+        3: {
+            label: "open when you miss us",
+            title: "For our stupid little moments",
+            message: `Remember when...
+
+THE EYE-CONTACTS 👀
+
+Our every eye-contact has been a memory, unforgettable memory. Our intense eye-contacts, and the way you look at me, it makes me feel special.
+I love especially when you can't hold eye-contact and you look away BECAUSE of shyness, but then you look back at me, and that's when my heart beats faster.
+
+You are just cute man, and I like you for that. 🤎`
+        },
+
+        4: {
+            label: "open when life gets heavy",
+            title: "A little reminder for you",
+            message: `Hey you,
+
+SEE NO ONE HAS TO BE PERFECT AND YOU DON'T HAVE TO BE EITHER.
+
+Anytime any moment you need me then just look for me and I will be there for you, forever bby. 
+Remember bad days / moments don't last forever.
+You don't always have to have everything figured out, and that there are people who will always be rooting for you. NOt all days are same, some days are good, some days are bad. But you have to keep going, and you need to strong. Never ever give up. 
+Stay strong and keep that cheerful smile on your face. And keep that innocent soul of yours alive.
+So whenever life makes you feel like you're not enough, I hope you remember this letter. You don't have to be perfect to be loved. You don't have to have everything figured out. You don't have to carry everything alone. You are loved. You are important. And you are never as alone as you might sometimes feel.`
+        },
+
+        5: {
+            label: "open this one last",
+            title: "Happy Birthday, Zakariaaa.. 🤎",
+            message: `Okay. Last one.
+
+THE FINAL LETTER WITH LOVE.
+
+I don't really know how to put this into words without making it sound cheesy, but you genuinely mean so much to me.
+I hope you know that I care about you. Not just in the “are you okay?” kind of way, but in all the little ways too. I care about how your day went, whether you're eating properly, whether something is bothering you even when you don't say it, whether you're happy, whether you're proud of yourself. I care about the person you're becoming, and honestly, I want to see you do so, so well in life.
+I want to see you successful. I want to see you achieve the things you talk about, the things you secretly wish for, and even the things you haven't figured out yet. I want to be there someday and look at you and think, “See? I always knew this pagluu could do it.” 😂
+And sometimes I randomly remember our stupid little moments—the nonsense conversations, the silly jokes that weren't even funny, the random things we laughed about for absolutely no reason, the tiny memories that probably wouldn't mean anything to anyone else but somehow mean everything to me.
+Those are the moments I'll always keep close. 
+And Zakariaaa, please never forget how loved you actually are. I don't think you always realise it. You are genuinely one of the kindest, sweetest and most innocent people I've ever known. You're a perfect little sweetie pie in your own weird, pagluu way. 🤎 And yes, you can be annoying too, obviously. That's part of the package.😂
+But underneath all of that, you're someone with a really good heart.
+I don't know what life will look like years from now. Maybe we'll be busy, maybe we'll talk every day, maybe we'll disappear into our own lives for a while. But one thing I want you to know is that my care for you isn't dependent on how often we talk.
+Even if someday we don't talk much, I'll still be here.
+Quietly cheering for you.
+Hoping you're happy.
+Wanting the best for you.
+And wishing that life gives you all the good things you deserve.
+So go become the successful, happy, calm, and confident version of yourself that I know you can be.
+
+And whenever you forget how special you are...
+come back and read this again. 🤎
+
+And yes i cried when i wrote this letter, because i really care about you and i want you to be happy.
+
+Happy birthday, Zakariaaa ♡`,
+        }
+    };
+
+    const letterModal = document.getElementById("letterModal");
+    const modalLabel = document.getElementById("modalLabel");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalMessage = document.getElementById("modalMessage");
+    const closeLetter = document.getElementById("closeLetter");
+    const modalNext = document.getElementById("modalNext");
+
+    document.querySelectorAll(".sticky-note").forEach(note => {
+        note.addEventListener("click", function() {
+            const letter = letters[this.dataset.letter];
+
+            modalLabel.textContent = letter.label;
+            modalTitle.textContent = letter.title;
+            modalMessage.textContent = letter.message;
+
+            letterModal.classList.add("show");
+            letterModal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+    function closeModal() {
+        letterModal.classList.remove("show");
+        letterModal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+    }
+
+    closeLetter.addEventListener("click", closeModal);
+    modalNext.addEventListener("click", closeModal);
+
+    document.querySelector(".modal-backdrop").addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") {
+            closeModal();
+        }
+    });
+
+</script>
+
+</body>
+</html>
